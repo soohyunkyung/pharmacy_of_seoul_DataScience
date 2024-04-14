@@ -1,0 +1,13 @@
+#DataFeature_get 이후의 내용입니다.
+
+#BackEnd 담당자와 열 이름 맞추기
+Pharmacy_df=Pharmacy_df.rename(columns={'HPID':'id','DUTYNAME':'name','시':'si','구':'gu','도로명':'road_name_address','연번':'main_number','WGS84LAT':'latitude','WGS84LON':'longitude','English':'speaking_english','Japanese':'speaking_japanese','Chinese':'speaking_chinese',
+                                        'DUTYTIME1C':'mon_close_time', 'DUTYTIME2C':'tue_close_time',
+       'DUTYTIME3C':'wed_close_time', 'DUTYTIME4C':'thu_close_time', 'DUTYTIME5C':'fri_close_time', 'DUTYTIME6C':'sat_close_time', 'DUTYTIME7C':'sun_close_time',
+       'DUTYTIME8C':'holiday_close_time', 'DUTYTIME1S':'mon_open_time', 'DUTYTIME2S':'tue_open_time', 'DUTYTIME3S':'wed_open_time', 'DUTYTIME4S':'thu_open_time',
+       'DUTYTIME5S':'fir_open_time', 'DUTYTIME6S':'sat_open_time', 'DUTYTIME7S':'sun_open_time', 'DUTYTIME8S':'holiday_open_time'})
+
+#딕셔너리 형식으로 변경
+Pharmacy_dict=Pharmacy_df.to_dict()
+
+#DB에 저장
