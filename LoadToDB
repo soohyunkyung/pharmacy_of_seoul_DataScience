@@ -8,6 +8,6 @@ Pharmacy_df=Pharmacy_df.rename(columns={'HPID':'id','DUTYNAME':'name','시':'si'
        'DUTYTIME5S':'fir_open_time', 'DUTYTIME6S':'sat_open_time', 'DUTYTIME7S':'sun_open_time', 'DUTYTIME8S':'holiday_open_time'})
 
 #딕셔너리 형식으로 변경
-Pharmacy_dict=Pharmacy_df.to_dict()
+Pharmacy_dict=Pharmacy_df.to_dict('list')
 
 #DB에 저장
