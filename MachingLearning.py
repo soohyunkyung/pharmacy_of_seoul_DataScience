@@ -1,6 +1,6 @@
 !pip install haversine
 
-from sklearn.neighbors import KNeighborsRegressor
+from sklearn.neighbors import KNeighborsClassifier
 from haversine import haversine
 import numpy as np
 
@@ -15,17 +15,18 @@ def get_pharmacy(datas, user_latitude, user_longitude):
     for i in range(len(datas)):
         filtered_longitude.append(float(datas[i]['longitude']))
         filtered_latitude.append(float(datas[i]['latitude']))
-    filtered_longitude_array=np.array(filtered_longitude)
-    filtered_latitude_array=np.array(filtered_latitude)
+
+    lat_lon_zip=[[lat,lon] for lat, lon in zip(filtered_latitude, filtered_longitude)]
+    fake=np.zeros(len(datas))
     
     if (len(datas))>4:
-        kn=KNeighborsRegressor()
+        kn=KNeighborsClassifier()
 
     elif(len(datas))<5:
-        kn=KNeighborsRegressor(n_neighbors=len(datas))
+        kn=KNeighborsClassifier(n_neighbors=len(datas))
 
-    kn.fit(filtered_latitude_array.reshape(-1,1), filtered_longitude_array.reshape(-1,1)) #드롭다운 된 경도, 위도를 통해 학습합니다.
-    distances, indexes=kn.kneighbors([[user_latitude]])
+    kn.fit(lat_lon_zip, fake) #드롭다운 된 경도, 위도를 통해 학습합니다.
+    distances, indexes=kn.kneighbors([[user_latitude, user_longitude]])
     
     for i in indexes[0]:
         datas_results.append(datas[i])
