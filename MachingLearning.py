@@ -37,11 +37,11 @@ def get_pharmacy(datas, user_latitude, user_longitude):
 
         kn.fit(lat_lon_zip, fake)
         distances, indexes=kn.kneighbors([[user_latitude, user_longitude]])
-        
-    for i in indexes[0]:
-        datas_results.append(datas[i])
     
     for i in indexes[0]:
         datas[i]["distance"]=(str(haversine((float(user_latitude), float(user_longitude)),(float(datas[i]['latitude']),float(datas[i]['longitude']))))+"km") #사용자로부터 가까운 5개 약국과의 거리를 저장합니다.
-
+    
+    for i in indexes[0]:
+        datas_results.append(datas[i])
+        
     return datas_results
