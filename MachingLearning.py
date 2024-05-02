@@ -18,6 +18,12 @@ def get_pharmacy(datas, user_latitude, user_longitude):
 
     lat_lon_zip=[[lat,lon] for lat, lon in zip(filtered_latitude, filtered_longitude)]
     fake=np.zeros(len(datas))
+
+    mean=np.mean(lat_lon_zip,axis=0)
+    std=np.std(lat_lon_zip,axis=0)
+
+    lat_lon_zip=(lat_lon_zip-mean)/std
+    new=([user_latitude, user_longitude]-mean)/std
     
     if (len(datas))>4:
         kn=KNeighborsClassifier()
@@ -26,7 +32,7 @@ def get_pharmacy(datas, user_latitude, user_longitude):
         kn=KNeighborsClassifier(n_neighbors=len(datas))
 
     kn.fit(lat_lon_zip, fake) #드롭다운 된 경도, 위도를 통해 학습합니다.
-    distances, indexes=kn.kneighbors([[user_latitude, user_longitude]])
+    distances, indexes=kn.kneighbors([new])
     
     for i in indexes[0]:
         datas_results.append(datas[i])
